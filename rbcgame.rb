@@ -1,8 +1,11 @@
 require 'gosu'
+require_relative './position_calculator.rb'
+require_relative './move_descriptor.rb'
+
 
 class Sprite
-  attr_accessor :x, :y, :animation
-
+  MAX_X = 675
+  MIN_X = -35
   def initialize window
     @window = window
     # image
@@ -16,6 +19,8 @@ class Sprite
     # center image
     @x = @window.width/2  - @width/2
     @y = @window.height/2 - @height/2
+    @initial_y = @window.height/2 - @height/2
+    @last_move = MoveDescriptor.initial_move(@x, @y)
     # direction and movement
     @direction = :right
     @frame = 0
@@ -28,20 +33,53 @@ class Sprite
   def update
     @frame += 1
     @moving = false
-    if @window.button_down?(Gosu::KbLeft) && @x > 0
+    @last_move = PositionCalculator.get_new_coords(@window, @x, @y, @initial_y, @last_move)
+    @x = @last_move.x 
+    @y = @last_move.y
+    @moving = @last_move.moving 
+    @direction = @last_move.direction
+    return 
+
+    if @window.button_down? Gosu::KbLeft
       @direction = :left
       @moving = true
-      @x += -5
-    elsif @window.button_down?(Gosu::KbRight) && @x < @window.width - @width
+      @x += -5 unless @x <= MIN_X
+    elsif @window.button_down? Gosu::KbRight
       @direction = :right
       @moving = true
-      @x += 5
-    elsif @window.button_down?(Gosu::KB_A)
-      @animation = Jump.new(@window, self) unless !@animation.nil?
+      @x += 5 unless @x >= MAX_X
+    elsif @window.button_down? Gosu::KbSpace
+      @moving = true
+      @jumping = true 
+      @jump_count = 7
+    elsif @jumping
+      @jump_count -= 1
+      puts get_y_from_jump(@jump_count)
+      @jumping = false if @jump_count <= 0
+      @y = @initial_y - (get_y_from_jump(@jump_count) * 10)   
     end
 
     @animation.update unless @animation.nil?
   end
+
+  def get_y_from_jump(jump_count)
+    case jump_count
+      when 6
+        1
+      when 5
+        3
+      when 4
+        4
+      when 3
+        4
+      when 2
+        3
+      when 1
+        1
+      else
+        0
+    end
+  end 
 
   def draw
     # @move and @idle are the same size,
