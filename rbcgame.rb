@@ -18,6 +18,7 @@ class Sprite
     @direction = :right
     @frame = 0
     @moving = false
+    @sprite_bottom = 125
   end
 
   def update
@@ -32,6 +33,11 @@ class Sprite
       @moving = true
       @x += 5
     end
+    gravity_pull
+  end
+
+  def gravity_pull
+    @y += 5 unless @y + @sprite_bottom == 550
   end
 
   def draw
@@ -45,7 +51,19 @@ class Sprite
       image.draw @x + @width, @y, 1, -1, 1
     end
   end
+end
 
+class Floor
+  def initialize(window)
+    @window = window
+    @sprite = Gosu::Image.load_tiles(@window, 'floor.png', 800, 20, false)[0]
+    @x = 0
+    @y = 550
+  end
+
+  def draw
+    @sprite.draw(0, 550, 1)
+  end
 end
 
 class RBCGame < Gosu::Window
@@ -53,6 +71,7 @@ class RBCGame < Gosu::Window
     super
     self.caption = "Book Club Game"
     @sprite = Sprite.new self
+    @floor = Floor.new(self)
   end
 
   def button_down id
@@ -65,6 +84,7 @@ class RBCGame < Gosu::Window
 
   def draw
     @sprite.draw
+    @floor.draw
   end
 end
 
