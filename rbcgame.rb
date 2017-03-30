@@ -5,6 +5,7 @@ class Sprite
     @window = window
     # image
     @width = @height = 160
+    @ground_level = 200
     @idle = Gosu::Image.load_tiles @window,
                                    "player_160x160_idle.png",
                                    @width, @height, true
@@ -12,8 +13,13 @@ class Sprite
                                    "player_160x160_move.png",
                                    @width, @height, true
     # center image
+    # @x = @window.width/2  - @width/2
+    # @y = @window.height/2 - @height/2
+
+    # set sprite lower on screen, almost bottom
     @x = @window.width/2  - @width/2
-    @y = @window.height/2 - @height/2
+    @y = @window.height - @ground_level
+
     # direction and movement
     @direction = :right
     @frame = 0
@@ -51,8 +57,10 @@ end
 class RBCGame < Gosu::Window
   def initialize width=800, height=600, fullscreen=false
     super
+    @background_image = Gosu::Image.new("1920x1080.png", :tileable => true);
     self.caption = "Book Club Game"
     @sprite = Sprite.new self
+    @x1 = 0
   end
 
   def button_down id
@@ -60,10 +68,19 @@ class RBCGame < Gosu::Window
   end
 
   def update
+    @x1 -= 5
     @sprite.update
   end
 
   def draw
+    # scale large image down to window size
+    fx = self.width.to_f/@background_image.width
+    fy = self.height.to_f/@background_image.height
+
+    local_x = @x1 % - self.width
+
+    @background_image.draw(local_x, 0, 0, fx, fy)
+    @background_image.draw(self.width + local_x, 0, 0, fx, fy) if local_x < 0
     @sprite.draw
   end
 end
