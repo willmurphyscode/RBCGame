@@ -1,6 +1,8 @@
 require 'gosu'
 
 class Sprite
+  attr_accessor :x, :y, :animation
+
   def initialize window
     @window = window
     # image
@@ -18,6 +20,9 @@ class Sprite
     @direction = :right
     @frame = 0
     @moving = false
+
+    #animations
+    @animation = nil
   end
 
   def update
@@ -31,7 +36,11 @@ class Sprite
       @direction = :right
       @moving = true
       @x += 5
+    elsif @window.button_down?(Gosu::KB_A)
+      @animation = Jump.new(@window, self) unless !@animation.nil?
     end
+
+    @animation.update unless @animation.nil?
   end
 
   def draw
@@ -46,6 +55,34 @@ class Sprite
     end
   end
 
+end
+
+class Jump
+  MAX_JUMP = 100
+
+  def initialize(window, player)
+    @window = window
+    @player = player
+    @jump_y = 0
+    @direction = :up
+    @done = false
+  end
+
+  def update
+    if @jump_y >= MAX_JUMP && @direction == :up
+      @player.y += 5
+      @jump_y -= 5
+      @direction = :down
+    elsif @jump_y < MAX_JUMP && @jump_y > 0 && @direction == :down
+      @player.y += 5
+      @jump_y -= 5
+    elsif @jump_y == 0 && @direction == :down
+      @player.animation = nil
+    else
+      @player.y -= 5
+      @jump_y += 5
+    end
+  end
 end
 
 class RBCGame < Gosu::Window
