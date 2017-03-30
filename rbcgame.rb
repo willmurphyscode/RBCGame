@@ -23,11 +23,11 @@ class Sprite
   def update
     @frame += 1
     @moving = false
-    if @window.button_down? Gosu::KbLeft
+    if @window.button_down?(Gosu::KbLeft) && @x > 0
       @direction = :left
       @moving = true
       @x += -5
-    elsif @window.button_down? Gosu::KbRight
+    elsif @window.button_down?(Gosu::KbRight) && @x < @window.width - @width
       @direction = :right
       @moving = true
       @x += 5
