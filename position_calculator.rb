@@ -6,6 +6,8 @@ class PositionCalculator
   def self.get_new_coords(window, current_x, current_y, initial_y, last_move)
     x = current_x
     y = current_y
+    jump_count = last_move.jump_count
+    jumping = last_move.jumping 
 
     if window.button_down? Gosu::KbLeft
       direction = :left
@@ -25,7 +27,7 @@ class PositionCalculator
       jumping = false if jump_count <= 0
       y = initial_y - (get_y_from_jump(jump_count) * 10)   
     end
-    MoveDescriptor.new ([x, y, moving, direction])
+    MoveDescriptor.new ([x, y, moving, direction, jumping, jump_count])
   end
 
   def self.get_y_from_jump(jump_count)
