@@ -13,15 +13,18 @@ class PositionCalculator
       direction = :left
       moving = true
       x += -5 unless x <= MIN_X
-    elsif window.button_down? Gosu::KbRight
+    end
+    if window.button_down? Gosu::KbRight
       direction = :right
       moving = true
       x += 5 unless x >= MAX_X
-    elsif window.button_down? Gosu::KbSpace
+    end
+    if window.button_down? Gosu::KbSpace
       moving = true
+      jump_count = 7 unless jumping       
       jumping = true 
-      jump_count = 7
-    elsif jumping
+    end
+    if jumping
       jump_count -= 1
       puts get_y_from_jump(jump_count)
       jumping = false if jump_count <= 0
