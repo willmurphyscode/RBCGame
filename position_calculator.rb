@@ -21,15 +21,22 @@ class PositionCalculator
     end
     if window.button_down? Gosu::KbSpace
       moving = true
-      jump_count = 7 unless jumping       
-      jumping = true 
+      jump_count = 7 unless jumping
+      jumping = true
     end
     if jumping
       jump_count -= 1
       jumping = false if jump_count <= 0
-      y = initial_y - (get_y_from_jump(jump_count) * 10)   
+      y = initial_y - (get_y_from_jump(jump_count) * 10)
     end
+
+    debug_interrupt window
+
     MoveDescriptor.new ([x, y, moving, direction, jumping, jump_count])
+  end
+
+  def self.debug_interrupt(window)
+    binding.pry if window.button_down? Gosu::KbD
   end
 
   def self.get_y_from_jump(jump_count)
