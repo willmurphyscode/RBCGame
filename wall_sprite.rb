@@ -1,4 +1,5 @@
 class WallSprite
+  include Occupies
   MAX_X = 675
   MIN_X = -35
   def initialize window, hash = {}
