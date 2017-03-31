@@ -4,7 +4,7 @@ class PlayerSprite
   def initialize window
     @window = window
     # image
-    @width = @height = 160
+    @width = @height = 160 
     @idle = Gosu::Image.load_tiles @window,
                                    "player_160x160_idle.png",
                                    @width, @height, true
