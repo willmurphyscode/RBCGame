@@ -26,7 +26,6 @@ class PositionCalculator
     end
     if jumping
       jump_count -= 1
-      puts get_y_from_jump(jump_count)
       jumping = false if jump_count <= 0
       y = initial_y - (get_y_from_jump(jump_count) * 10)   
     end
