@@ -13,7 +13,7 @@ class PlayerSprite
                                    @width, @height, true
     # center image
     @x = @window.width/2  - @width/2
-    @y = 400
+    @y = 415
     @initial_y = @y
     @last_move = MoveDescriptor.initial_move(@x, @y)
     # direction and movement
