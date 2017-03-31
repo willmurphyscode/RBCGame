@@ -18,8 +18,8 @@ class Sprite
                                    @width, @height, true
     # center image
     @x = @window.width/2  - @width/2
-    @y = @window.height/2 - @height/2
-    @initial_y = @window.height/2 - @height/2
+    @y = 400
+    @initial_y = @y
     @last_move = MoveDescriptor.initial_move(@x, @y)
     # direction and movement
     @direction = :right
@@ -62,13 +62,13 @@ class Sprite
       when 6
         1
       when 5
-        3
+        5
       when 4
-        4
+        7
       when 3
-        4
+        7
       when 2
-        3
+        5
       when 1
         1
       else
