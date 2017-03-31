@@ -2,7 +2,7 @@ require 'gosu'
 require_relative './position_calculator.rb'
 require_relative './move_descriptor.rb'
 require_relative './player_sprite.rb'
-
+require_relative './floor_sprite.rb'
 
 
 class Jump
@@ -38,6 +38,7 @@ class RBCGame < Gosu::Window
     super
     self.caption = "Book Club Game"
     @sprite = PlayerSprite.new self
+    @floor = FloorSprite.new self
   end
 
   def button_down id
@@ -50,6 +51,7 @@ class RBCGame < Gosu::Window
 
   def draw
     @sprite.draw
+    @floor.draw
   end
 end
 
