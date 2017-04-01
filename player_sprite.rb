@@ -26,11 +26,21 @@ class PlayerSprite
   def update
     @frame += 1
     @moving = false
-    @last_move = PositionCalculator.get_new_coords(@window, @x, @y, @initial_y, @last_move)
-    @x = @last_move.x
-    @y = @last_move.y
-    @moving = @last_move.moving
-    @direction = @last_move.direction
+    @previous_move = @last_move
+    @last_move = make_move @last_move
+  end
+
+  def make_move move
+    move = PositionCalculator.get_new_coords(@window, @x, @y, @initial_y, @last_move)
+    @x = move.x
+    @y = move.y
+    @moving = move.moving
+    @direction = move.direction
+    move
+  end
+
+  def undo_last
+    @last_move = make_move @previous_move
   end
 
   def draw

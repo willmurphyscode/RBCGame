@@ -16,7 +16,9 @@ class GameState
     @player_sprite.update
     player_rectangle = @player_sprite.rectangle
     wall_rectangle = @walls[0].rectangle
-    wall_rectangle.collides? player_rectangle
+    @player_sprite.undo_last if wall_rectangle.collides? player_rectangle
+    puts 'undid last' if wall_rectangle.collides? player_rectangle
+
   end
 
   def draw
