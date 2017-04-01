@@ -27,11 +27,10 @@ class PlayerSprite
     @frame += 1
     @moving = false
     @last_move = PositionCalculator.get_new_coords(@window, @x, @y, @initial_y, @last_move)
-    @x = @last_move.x 
+    @x = @last_move.x
     @y = @last_move.y
-    @moving = @last_move.moving 
+    @moving = @last_move.moving
     @direction = @last_move.direction
-    return 
   end
 
   def draw

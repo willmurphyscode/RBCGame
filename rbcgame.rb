@@ -6,16 +6,16 @@ require_relative './move_descriptor.rb'
 require_relative './player_sprite.rb'
 require_relative './floor_sprite.rb'
 require_relative './wall_sprite.rb'
+require_relative './game_state.rb'
 
 class RBCGame < Gosu::Window
   @walls = []
+  attr_reader :game_state
   def initialize width=800, height=600, fullscreen=false
     super
     self.caption = "Book Club Game"
-    @sprite = PlayerSprite.new self
-    @floor = FloorSprite.new self
-    wall1 = WallSprite.new self, { height: 200, width: 85, x: 200, y:400 }
-    @walls = [wall1]
+    @game_state = GameState.new self
+    game_state.set_up_sprites
   end
 
   def button_down id
@@ -23,16 +23,11 @@ class RBCGame < Gosu::Window
   end
 
   def update
-    @sprite.update
-    player_rectangle = @sprite.rectangle
-    wall_rectangle = @walls[0].rectangle
-    puts wall_rectangle.collides? player_rectangle
+    game_state.tick
   end
 
   def draw
-    @sprite.draw
-    @floor.draw
-    @walls.each {|w| w.draw}
+    game_state.draw
   end
 end
 
