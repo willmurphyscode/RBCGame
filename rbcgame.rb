@@ -11,14 +11,14 @@ require_relative './game_state.rb'
 class RBCGame < Gosu::Window
   @walls = []
   attr_reader :game_state
-  def initialize width=800, height=600, fullscreen=false
+  def initialize(width = 800, height = 600, fullscreen = false)
     super
-    self.caption = "Book Club Game"
+    self.caption = 'Book Club Game'
     @game_state = GameState.new self
     game_state.set_up_sprites
   end
 
-  def button_down id
+  def button_down(id)
     close if id == Gosu::KbEscape
   end
 
