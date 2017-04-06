@@ -1,0 +1,37 @@
+Rails:
+  Enabled: false
+
+# Common configuration.
+AllCops:
+  TargetRubyVersion: 2.1
+  # Include gemspec and Rakefile
+  Include:
+    - '**/*.gemspec'
+    - '**/Rakefile'
+  Exclude:
+    - 'vendor/**/*'
+    - 'features/**/*'
+    - 'lib/cucumber/**/*'
+    - 'Gemfile'
+    - 'bin/**'
+    - 'tmp/**/*'
+    - 'db/**/*.rb'
+    - 'node_modules/**/*'
+    - 'test/support/test_json_helper.rb'
+
+##################### Metrics ##################################
+Metrics/LineLength:
+  Max: 150
+
+Metrics/AbcSize:
+  Enabled: false
+
+##################### Style ##################################
+Style/EndOfLine:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
