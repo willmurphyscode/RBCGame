@@ -3,23 +3,23 @@ require_relative 'move_descriptor'
 class PositionCalculator
   MAX_X = 675
   MIN_X = -35
-  def self.get_new_coords(window, current_x, current_y, initial_y, last_move)
+  def self.get_new_coords(window, current_x, current_y, initial_y, last_move, game_state)
     x = current_x
     y = current_y
     jump_count = last_move.jump_count
-    jumping = last_move.jumping 
+    jumping = last_move.jumping
 
-    if window.button_down? Gosu::KbLeft
+    if (window.button_down? (Gosu::KbLeft)) && (!game_state.blocked_left? self)
       direction = :left
       moving = true
       x += -5 unless x <= MIN_X
     end
-    if window.button_down? Gosu::KbRight
+    if (window.button_down? (Gosu::KbRight)) && (!game_state.blocked_right? self)
       direction = :right
       moving = true
       x += 5 unless x >= MAX_X
     end
-    if window.button_down? Gosu::KbSpace
+    if window.button_down? (Gosu::KbSpace)
       moving = true
       jump_count = 7 unless jumping
       jumping = true
@@ -30,32 +30,25 @@ class PositionCalculator
       y = initial_y - (get_y_from_jump(jump_count) * 10)
     end
 
-    debug_interrupt window
-
-    MoveDescriptor.new ([x, y, moving, direction, jumping, jump_count])
-  end
-
-  def self.debug_interrupt(window)
-    binding.pry if window.button_down? Gosu::KbD
+    MoveDescriptor.new [x, y, moving, direction, jumping, jump_count]
   end
 
   def self.get_y_from_jump(jump_count)
     case jump_count
-      when 6
+    when 6
         1
-      when 5
+    when 5
         3
-      when 4
+    when 4
         4
-      when 3
+    when 3
         4
-      when 2
+    when 2
         3
-      when 1
+    when 1
         1
       else
         0
     end
   end
-
 end

@@ -2,18 +2,19 @@ class PlayerSprite
   include Occupies
   MAX_X = 675
   MIN_X = -35
-  def initialize window
+  def initialize(window, game_state)
     @window = window
+    @game_state = game_state
     # image
-    @width = @height = 160 
+    @width = @height = 160
     @idle = Gosu::Image.load_tiles @window,
-                                   "player_160x160_idle.png",
+                                   'player_160x160_idle.png',
                                    @width, @height, true
     @move = Gosu::Image.load_tiles @window,
-                                   "player_160x160_move.png",
+                                   'player_160x160_move.png',
                                    @width, @height, true
     # center image
-    @x = @window.width/2  - @width/2
+    @x = @window.width / 2 - @width / 2
     @y = 415
     @initial_y = @y
     @last_move = MoveDescriptor.initial_move(@x, @y)
@@ -30,8 +31,8 @@ class PlayerSprite
     @last_move = make_move @last_move
   end
 
-  def make_move move
-    move = PositionCalculator.get_new_coords(@window, @x, @y, @initial_y, @last_move)
+  def make_move(move)
+    move = PositionCalculator.get_new_coords(@window, @x, @y, @initial_y, @last_move, @game_state)
     @x = move.x
     @y = move.y
     @moving = move.moving
@@ -54,5 +55,4 @@ class PlayerSprite
       image.draw @x + @width, @y, 1, -1, 1
     end
   end
-
 end

@@ -1,5 +1,4 @@
 class MoveDescriptor
-
   attr_accessor :x, :y, :direction, :moving, :jumping, :jump_count
   def initialize(ary)
     @x, @y, @moving, @direction, @jumping, @jump_count = ary
