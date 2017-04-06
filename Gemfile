@@ -4,4 +4,5 @@ ruby '2.3.1'
 # gem "rails"
 gem 'gosu'
 gem 'reek'
+gem 'rubocop', require: false
 
