@@ -19,13 +19,13 @@ class GameState
     @player_sprite.undo_last if wall_rectangle.collides? player_rectangle
   end
 
-  def blocked_left?(sprite)
+  def blocked_left?(_sprite)
     player_rectangle = @player_sprite.rectangle
     wall_rectangle = @walls[0].rectangle
     player_rectangle.blocked_left? wall_rectangle
   end
 
-  def blocked_right?(sprite)
+  def blocked_right?(_sprite)
     player_rectangle = @player_sprite.rectangle
     wall_rectangle = @walls[0].rectangle
     player_rectangle.blocked_right? wall_rectangle

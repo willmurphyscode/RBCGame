@@ -9,17 +9,17 @@ class PositionCalculator
     jump_count = last_move.jump_count
     jumping = last_move.jumping
 
-    if (window.button_down? (Gosu::KbLeft)) && (!game_state.blocked_left? self)
+    if (window.button_down? Gosu::KbLeft) && (!game_state.blocked_left? self)
       direction = :left
       moving = true
       x += -5 unless x <= MIN_X
     end
-    if (window.button_down? (Gosu::KbRight)) && (!game_state.blocked_right? self)
+    if (window.button_down? Gosu::KbRight) && (!game_state.blocked_right? self)
       direction = :right
       moving = true
       x += 5 unless x >= MAX_X
     end
-    if window.button_down? (Gosu::KbSpace)
+    if window.button_down? Gosu::KbSpace
       moving = true
       jump_count = 7 unless jumping
       jumping = true
@@ -36,19 +36,19 @@ class PositionCalculator
   def self.get_y_from_jump(jump_count)
     case jump_count
     when 6
-        1
+      1
     when 5
-        3
+      3
     when 4
-        4
+      4
     when 3
-        4
+      4
     when 2
-        3
+      3
     when 1
-        1
-      else
-        0
+      1
+    else
+      0
     end
   end
 end
