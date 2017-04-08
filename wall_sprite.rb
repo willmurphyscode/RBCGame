@@ -21,4 +21,12 @@ class WallSprite
     @image[1].draw @x, @y, 1
     debug_draw @window
   end
+
+  def blocks_left?(mover_rectangle)
+    mover_rectangle.blocked_left? rectangle
+  end
+
+  def blocks_right?(mover_rectangle)
+    mover_rectangle.blocked_right? rectangle
+  end
 end
