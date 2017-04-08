@@ -54,5 +54,6 @@ class PlayerSprite
     else
       image.draw @x + @width, @y, 1, -1, 1
     end
+    debug_draw @window
   end
 end
