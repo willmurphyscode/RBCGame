@@ -22,11 +22,11 @@ class GameState
   end
 
   def blocked_left?(_sprite)
-    return @walls.any? { |wall| wall.blocks_left?(@player_sprite.rectangle) }
+    @walls.any? { |wall| wall.blocks_left?(@player_sprite.rectangle) }
   end
 
   def blocked_right?(_sprite)
-    return @walls.any? { |wall| wall.blocks_right?(@player_sprite.rectangle) }
+    @walls.any? { |wall| wall.blocks_right?(@player_sprite.rectangle) }
   end
 
   def draw

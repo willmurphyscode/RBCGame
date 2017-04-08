@@ -5,7 +5,11 @@ class PlayerSprite
   def initialize(window, game_state)
     @window = window
     @game_state = game_state
-    # image
+    setup_image
+    setup_initial_state
+  end
+
+  def setup_image
     @width = @height = 160
     @idle = Gosu::Image.load_tiles @window,
                                    'player_160x160_idle.png',
@@ -13,7 +17,9 @@ class PlayerSprite
     @move = Gosu::Image.load_tiles @window,
                                    'player_160x160_move.png',
                                    @width, @height, true
-    # center image
+  end
+
+  def setup_initial_state
     @x = @window.width / 2 - @width / 2
     @y = 415
     @initial_y = @y

@@ -16,7 +16,7 @@ module Occupies
   end
 
   def rectangle
-    Rectangle.new  x_min: x_min, x_max: x_max, y_min: y_min, y_max: y_max
+    Rectangle.new x_min: x_min, x_max: x_max, y_min: y_min, y_max: y_max
   end
 
   def debug_draw(window)
@@ -29,7 +29,6 @@ module Occupies
     window.draw_line(x_max, y_min, color, x_max, y_max, color)
     window.draw_line(x_min, y_max, color, x_max, y_max, color)
     window.draw_line(x_min, y_min, color, x_max, y_min, color)
-
   end
 end
 
