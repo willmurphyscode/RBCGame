@@ -24,6 +24,22 @@ class PlayerSprite
     @moving = false
   end
 
+  def x_min
+    @x + 25
+  end
+
+  def y_min
+    @y + 25
+  end
+
+  def x_max
+    @x + @width - 25
+  end
+
+  def y_max
+    @y + @height - 25
+  end
+
   def update
     @frame += 1
     @moving = false
@@ -54,5 +70,6 @@ class PlayerSprite
     else
       image.draw @x + @width, @y, 1, -1, 1
     end
+    debug_draw @window
   end
 end

@@ -19,5 +19,6 @@ class WallSprite
 
   def draw
     @image[1].draw @x, @y, 1
+    debug_draw @window
   end
 end
