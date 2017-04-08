@@ -2,9 +2,11 @@ module Occupies
   def x_min
     @x
   end
+
   def y_min
     @y
   end
+
   def x_max
     @x + @width
   end
@@ -18,8 +20,11 @@ module Occupies
   end
 
   def debug_draw(window)
+    return unless DEBUG_DRAW
+
     color = Gosu::Color.argb(0xffff00ff)
-    #draw_line(x1, y1, c1, x2, y2, c2, z = 0, mode = :default) ⇒ void
+    # from the Gosu docs:
+    # draw_line(x1, y1, c1, x2, y2, c2, z = 0, mode = :default) ==> void
     window.draw_line(x_min, y_min, color, x_min, y_max, color)
     window.draw_line(x_max, y_min, color, x_max, y_max, color)
     window.draw_line(x_min, y_max, color, x_max, y_max, color)

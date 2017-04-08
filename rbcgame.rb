@@ -8,6 +8,8 @@ require_relative './floor_sprite.rb'
 require_relative './wall_sprite.rb'
 require_relative './game_state.rb'
 
+DEBUG_DRAW = false
+
 class RBCGame < Gosu::Window
   @walls = []
   attr_reader :game_state
