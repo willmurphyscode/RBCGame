@@ -17,4 +17,24 @@ class RectangleTest < Minitest::Test
     b = Rectangle.new b_hash
     assert a.collides? b
   end
+
+  def test_overlaps
+    a_hash = { x_min: 5, x_max: 10, y_min: 0, y_max: 15 }
+    a = Rectangle.new a_hash
+    x = [0, 4]
+    y = [1, 2]
+    lows = [x.min, y.min]
+    highs = [x.max, y.max]
+    assert a.overlaps?(lows, highs), 'Overlapping range did not overlap'
+  end
+
+  def test_dont_overlap
+    a_hash = { x_min: 5, x_max: 10, y_min: 0, y_max: 15 }
+    a = Rectangle.new a_hash
+    x = [0, 4]
+    y = [6, 9]
+    lows = [x.min, y.min]
+    highs = [x.max, y.max]
+    refute a.overlaps?(lows, highs), 'Non-overlapping range overlapped'
+  end
 end
