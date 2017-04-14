@@ -54,8 +54,9 @@ class Rectangle
     collides?(other) && other.x_max > @x_min
   end
 
-  def blocked_down?(_other)
-    raise NotImplementedError
+  def blocked_down?(other)
+    overlaps?([other.x_min, x_min], [other.x_max, x_max]) &&
+        (between?(other.y_min, y_min, y_max) || between?(other.y_max, y_min, y_max))
   end
 
   def blocked_up?(_other)
