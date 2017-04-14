@@ -43,7 +43,7 @@ class Rectangle
 
   def collides?(other)
     (between?(other.x_min, x_min, x_max) || between?(other.x_max, x_min, x_max)) &&
-        overlaps?([other.y_min, y_min ], [other.y_max, y_max])
+      overlaps?([other.y_min, y_min], [other.y_max, y_max])
   end
 
   def blocked_left?(other)
@@ -54,26 +54,20 @@ class Rectangle
     collides?(other) && other.x_max > @x_min
   end
 
-  def blocked_down?(_other)
-    raise NotImplementedError
+  def blocked_down?(other)
+    overlaps?([other.x_min, x_min], [other.x_max, x_max]) &&
+      (between?(other.y_min, y_min, y_max) || between?(other.y_max, y_min, y_max))
   end
 
   def blocked_up?(_other)
     raise NotImplementedError
   end
 
-  private
-
   def between?(candidate, low, high)
     (low <= candidate && candidate <= high) || (high <= candidate && candidate <= low)
   end
 
   def overlaps?(lows, highs)
-    # four situations
-    # [0, 4] overlaps [1,2]
-    # [0, 4] overlaps [-1, 2]
-    # [0, 4] overlaps [3, 5]
-    # [0, 4] overlaps [-1, 6]
     lows.max <= highs.min
   end
 end

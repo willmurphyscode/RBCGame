@@ -29,4 +29,8 @@ class WallSprite
   def blocks_right?(mover_rectangle)
     mover_rectangle.blocked_right? rectangle
   end
+
+  def blocks_top?(mover_rectangle)
+    mover_rectangle.blocked_down? rectangle
+  end
 end

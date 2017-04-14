@@ -38,13 +38,13 @@ class PositionCalculator
     when 6
       1
     when 5
-      3
+      7
     when 4
-      4
+      10
     when 3
-      4
+      10
     when 2
-      3
+      7
     when 1
       1
     else

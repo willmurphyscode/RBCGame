@@ -7,7 +7,8 @@ class GameState
 
   def set_up_sprites
     @player_sprite = PlayerSprite.new @window, self
-    @floor = FloorSprite.new @window
+    # @floor = FloorSprite.new @window
+    @floor = WallSprite.new @window, height: 120, width: 800, x: 0, y: 550
     wall1 = WallSprite.new @window, height: 200, width: 85, x: 200, y: 400
     wall2 = WallSprite.new @window, height: 12, width: 85, x: 500, y: 500
 
@@ -27,6 +28,10 @@ class GameState
 
   def blocked_right?(_sprite)
     @walls.any? { |wall| wall.blocks_right?(@player_sprite.rectangle) }
+  end
+
+  def blocked_down?(sprite)
+    @floor.blocks_top? sprite.rectangle
   end
 
   def draw
