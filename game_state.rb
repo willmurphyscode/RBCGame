@@ -31,7 +31,8 @@ class GameState
   end
 
   def blocked_down?(sprite)
-    @floor.blocks_top? sprite.rectangle
+    (@floor.blocks_top? sprite.rectangle) ||
+        (@walls.any? { |wall| wall.blocks_top? sprite.rectangle })
   end
 
   def draw

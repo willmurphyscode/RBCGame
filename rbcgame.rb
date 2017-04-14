@@ -8,7 +8,7 @@ require_relative './player_sprite.rb'
 require_relative './wall_sprite.rb'
 require_relative './game_state.rb'
 
-DEBUG_DRAW = false
+DEBUG_DRAW = true
 
 class RBCGame < Gosu::Window
   @walls = []
