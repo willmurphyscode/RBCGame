@@ -2,7 +2,6 @@ require 'minitest/autorun'
 require_relative '../rectangle.rb'
 require_relative '../gravity'
 
-
 class FakeGameState
   def initialize(blocked = false)
     @blocked = blocked
@@ -21,13 +20,10 @@ class FakePlayer
     @game_state = game_state
   end
 
-  def y
-    @y
-  end
+  attr_reader :y
 end
 
 class GravityTest < Minitest::Test
-
   def test_not_blocked_falls
     sut = FakePlayer.new(FakeGameState.new(false))
     expected = 10
