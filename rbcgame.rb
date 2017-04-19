@@ -1,5 +1,6 @@
 require 'gosu'
 require 'pry'
+require_relative './momentum.rb'
 require_relative './rectangle.rb'
 require_relative './position_calculator.rb'
 require_relative './move_descriptor.rb'

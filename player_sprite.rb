@@ -57,7 +57,7 @@ class PlayerSprite
   end
 
   def make_move(move)
-    move = PositionCalculator.get_new_coords(@window, @x, @y, @initial_y, @last_move, @game_state)
+    move = PositionCalculator.get_new_coords(@window, @x, @y, @initial_y, @last_move, @game_state, self)
     @x = move.x
     @y = move.y
     @moving = move.moving

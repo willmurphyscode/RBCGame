@@ -56,7 +56,8 @@ class Rectangle
 
   def blocked_down?(other)
     overlaps?([other.x_min, x_min], [other.x_max, x_max]) &&
-      (between?(other.y_min, y_min, y_max) || between?(other.y_max, y_min, y_max))
+     #   (overlaps?([other.y_max, y_max], [other.y_min, y_min]))
+     (between?(-other.y_min, -y_min, -y_max) || between?(-other.y_max, -y_min, -y_max))
   end
 
   def blocked_up?(_other)
@@ -64,10 +65,54 @@ class Rectangle
   end
 
   def between?(candidate, low, high)
-    (low <= candidate && candidate <= high) || (high <= candidate && candidate <= low)
+    (low <= candidate && candidate < high) || (high < candidate && candidate < low)
   end
 
   def overlaps?(lows, highs)
     lows.max <= highs.min
+  end
+
+  def clearance_left(game_state)
+    nearest = wall_rectangles(game_state)
+              .select { |r| r.on_horizontal_vector(self) }
+              .sort { |r| self.left_dist(r) }
+              .first
+    result = left_dist(nearest)
+    result
+  end
+
+  def clearance_right(game_state)
+    nearest = wall_rectangles(game_state)
+                  .select { |r| r.on_horizontal_vector(self) }
+                  .sort { |r| self.right_dist(r) }
+                  .first
+    result =  right_dist(nearest)
+    result
+  end
+
+  def clearance_up(game_state)
+
+  end
+
+  def clearance_down(game_state)
+
+  end
+
+  def wall_rectangles(game_state)
+    game_state.walls.collect { |w| w.rectangle }
+  end
+
+  def on_horizontal_vector(other)
+    lows = [self.y_min, other.y_min]
+    highs = [self.y_max, other.y_max]
+    overlaps?(lows, highs)
+  end
+
+  def left_dist(other)
+    other.x_max - self.x_min
+  end
+
+  def right_dist(other)
+    self.x_max - other.x_min
   end
 end

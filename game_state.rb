@@ -1,5 +1,5 @@
 class GameState
-  attr_reader :window
+  attr_reader :window, :walls
 
   def initialize(window)
     @window = window
@@ -10,7 +10,7 @@ class GameState
     # @floor = FloorSprite.new @window
     @floor = WallSprite.new @window, height: 120, width: 800, x: 0, y: 550
     wall1 = WallSprite.new @window, height: 200, width: 85, x: 200, y: 400
-    wall2 = WallSprite.new @window, height: 12, width: 85, x: 500, y: 500
+    wall2 = WallSprite.new @window, height: 12, width: 185, x: 500, y: 500
 
     @walls = [wall1, wall2]
   end
@@ -40,4 +40,5 @@ class GameState
     @floor.draw
     @walls.each(&:draw)
   end
+
 end
