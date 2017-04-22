@@ -10,6 +10,33 @@ class RectangleTest < Minitest::Test
     refute a.collides? b
   end
 
+  def test_tangents_dont_collide
+    a_hash = { x_min: 5, x_max: 10, y_min: 0, y_max: 15 }
+    b_hash = { x_min: 10, x_max: 501, y_min: 10, y_max: 124 } # x coords touch but don't overlap
+    a = Rectangle.new a_hash
+    b = Rectangle.new b_hash
+    refute (a.collides? b), 'Rectangles that touch don\'t collide yet'
+  end
+
+  def test_tangent_do_block_down
+    a_hash = { x_min: 5, x_max: 10, y_min: 10, y_max: 99 }
+    b_hash = { x_min: 8, x_max: 501, y_min: 100, y_max: 124 } # x coords touch but don't overlap
+    a = Rectangle.new a_hash
+    b = Rectangle.new b_hash
+    assert (a.blocked_down? b), 'Expected top rectangle to be blocked down'
+  end
+
+  def test_sitting_on_top_doesnt_block_left
+    a_hash = { x_min: 5, x_max: 10, y_min: 10, y_max: 99 }
+    b_hash = { x_min: 8, x_max: 501, y_min: 100, y_max: 124 } # x coords touch but don't overlap
+    a = Rectangle.new a_hash
+    b = Rectangle.new b_hash
+    refute a.blocked_left? b
+    refute a.blocked_right? b
+  end
+
+
+
   def test_collision_collides
     a_hash = { x_min: 5, x_max: 10, y_min: 0, y_max: 15 }
     b_hash = { x_min: 9, x_max: 501, y_min: 10, y_max: 124 } # x coords overlap

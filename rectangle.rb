@@ -59,8 +59,9 @@ class Rectangle
 
   def blocked_down?(other)
     overlaps?([other.x_min, x_min], [other.x_max, x_max]) &&
-     #   (overlaps?([other.y_max, y_max], [other.y_min, y_min]))
-     (between?(-other.y_min, -y_min, -y_max) || between?(-other.y_max, -y_min, -y_max))
+     #   (overlaps?([other.y_min, y_min], [other.y_max, y_max]))
+      (touches?([other.y_min, y_min], [other.y_max, y_max]))
+     # (between?(-other.y_min, -y_min, -y_max) || between?(-other.y_max, -y_min, -y_max))
   end
 
   def blocked_up?(_other)
@@ -73,6 +74,10 @@ class Rectangle
 
   def overlaps?(lows, highs)
     lows.max <= highs.min
+  end
+
+  def touches?(lows, highs)
+    (lows.max - 1) <= highs.min
   end
 
   def clearance_left(game_state)
