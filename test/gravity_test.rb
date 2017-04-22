@@ -26,7 +26,7 @@ end
 class GravityTest < Minitest::Test
   def test_not_blocked_falls
     sut = FakePlayer.new(FakeGameState.new(false))
-    expected = 30
+    expected = 21
     sut.fall
     actual = sut.y
     assert_equal(expected, actual)

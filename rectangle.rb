@@ -33,6 +33,9 @@ module Occupies
 end
 
 class Rectangle
+
+  MAX_DISTANCE = 10000
+
   attr_reader :x_min, :x_max, :y_min, :y_max
   def initialize(hash)
     @x_min = hash[:x_min]
@@ -77,7 +80,7 @@ class Rectangle
               .select { |r| r.on_horizontal_vector(self) }
               .sort { |r| self.left_dist(r) }
               .first
-    result = left_dist(nearest)
+    result = nearest.nil? ? MAX_DISTANCE : left_dist(nearest)
     result
   end
 
@@ -86,7 +89,7 @@ class Rectangle
                   .select { |r| r.on_horizontal_vector(self) }
                   .sort { |r| self.right_dist(r) }
                   .first
-    result =  right_dist(nearest)
+    result = nearest.nil? ? MAX_DISTANCE : right_dist(nearest)
     result
   end
 

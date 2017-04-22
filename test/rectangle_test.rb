@@ -37,4 +37,22 @@ class RectangleTest < Minitest::Test
     highs = [x.max, y.max]
     refute a.overlaps?(lows, highs), 'Non-overlapping range overlapped'
   end
+
+  def test_blocked_down
+    a_hash = { x_min: 5, x_max: 10, y_min: 100, y_max: 200 }
+    a = Rectangle.new a_hash
+    b_hash = { x_min: 5, x_max: 10, y_min: 50, y_max: 101 }
+    b = Rectangle.new b_hash
+
+    assert (b.blocked_down? (a)), 'expected rectangle to be blocked but it wasn\'t'
+  end
+
+  def test_not_blocked_down
+    a_hash = { x_min: 5, x_max: 10, y_min: 200, y_max: 300 }
+    a = Rectangle.new a_hash
+    b_hash = { x_min: 5, x_max: 10, y_min: 50, y_max: 100 }
+    b = Rectangle.new b_hash
+
+    refute (b.blocked_down? (a)), 'expected rectangle not to be blocked but it was'
+  end
 end
