@@ -1,5 +1,7 @@
 class PlayerSprite
   include Occupies
+  include Gravity
+
   MAX_X = 675
   MIN_X = -35
   def initialize(window, game_state)
@@ -51,10 +53,11 @@ class PlayerSprite
     @moving = false
     @previous_move = @last_move
     @last_move = make_move @last_move
+    fall
   end
 
   def make_move(move)
-    move = PositionCalculator.get_new_coords(@window, @x, @y, @initial_y, @last_move, @game_state)
+    move = PositionCalculator.get_new_coords(@window, @x, @y, @initial_y, @last_move, @game_state, self)
     @x = move.x
     @y = move.y
     @moving = move.moving

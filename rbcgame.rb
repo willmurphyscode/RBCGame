@@ -1,14 +1,15 @@
 require 'gosu'
 require 'pry'
+require_relative './momentum.rb'
 require_relative './rectangle.rb'
 require_relative './position_calculator.rb'
 require_relative './move_descriptor.rb'
+require_relative './gravity.rb'
 require_relative './player_sprite.rb'
-require_relative './floor_sprite.rb'
 require_relative './wall_sprite.rb'
 require_relative './game_state.rb'
 
-DEBUG_DRAW = false
+DEBUG_DRAW = true
 
 class RBCGame < Gosu::Window
   @walls = []
